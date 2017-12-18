@@ -26,7 +26,7 @@ public class NetworkUtils {
     public static final String MOVIE_TOP_RATED = "movie/top_rated";
 
     private  static final String API_KEY_PARAM = "api_key";
-    private  static final String API_KEY = "21917fbd741c8ebed8f2bbf89dd83697";
+    private  static final String API_KEY = "";
 
     public static URL buildUrl(String popular_or_toprated) {
         Uri builtUri = Uri

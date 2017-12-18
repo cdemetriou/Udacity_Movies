@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     private ProgressBar mLoadingIndicator;
 
     private String sort_by = NetworkUtils.MOVIE_POPULAR;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
