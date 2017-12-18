@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,7 +52,28 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         mRecyclerView.setAdapter(movieAdapter);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
-        if (NetworkUtils.isNetworkAvailable(this)) loadData();
+        if(savedInstanceState == null || !savedInstanceState.containsKey("movies")) {
+            if (NetworkUtils.isNetworkAvailable(this)) loadData();
+            else showErrorMessage();
+        }
+        else {
+            dataList = savedInstanceState.getParcelableArrayList("movies");
+            sort_by = savedInstanceState.getString("sort_by");
+            movieAdapter.setNewData(dataList);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+        bundle.putString("sort_by", sort_by);
+        bundle.putParcelableArrayList("movies", (ArrayList<? extends Parcelable>) dataList);
+        super.onSaveInstanceState(bundle);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle bundle) {
+        sort_by = bundle.getString("sort_by");
+        super.onRestoreInstanceState(bundle);
     }
 
     @Override
@@ -150,8 +172,9 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
                 showErrorMessage();
                 return;
             }
+            dataList = movieList;
             showDataView();
-            movieAdapter.setNewData(movieList);
+            movieAdapter.setNewData(dataList);
         }
     }
 
