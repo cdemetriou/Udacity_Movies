@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+
+    <string name="error_message">
+        An error has occurred. Please try again.
+    </string>
+    <string name="sort_by">Sort by</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="movie_image_description">movie poster image</string>
+    <string name="detail_activity_title">MovieDetail</string>
+</resources>
