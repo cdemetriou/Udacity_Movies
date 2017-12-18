@@ -6,10 +6,13 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.popularmovies.dataModel.Movie;
 import com.android.popularmovies.utilities.DateUtils;
 import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
+
+    // private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +24,7 @@ public class DetailActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.detail_activity_title);
         }
 
-        Movie movie = getIntent().getParcelableExtra("movie");
+        Movie movie = getIntent().getParcelableExtra(getString(R.string.movie_identifier));
 
         TextView tvTitle = findViewById(R.id.title);
         tvTitle.setText(movie.getTitle());
@@ -38,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         tvDate.setText(DateUtils.getYear(movie.getRelease_date()));
 
         TextView tvRating = findViewById(R.id.rating);
-        tvRating.setText(String.format("%s/%s", movie.getVote_average(), "10"));
+        tvRating.setText(String.format("%s/%s", movie.getVote_average(), getString(R.string.top_rating)));
 
     }
 

@@ -1,5 +1,6 @@
 package com.android.popularmovies;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.popularmovies.adapter.MoviesAdapter;
+import com.android.popularmovies.dataModel.Movie;
 import com.android.popularmovies.utilities.NetworkUtils;
 import com.android.popularmovies.utilities.MovieDBJsonUtils;
 
@@ -24,7 +27,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MovieAdapterOnClickHandler {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    // private static final String TAG = MainActivity.class.getSimpleName();
 
     private List<Movie> dataList;
     private RecyclerView mRecyclerView;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     private ProgressBar mLoadingIndicator;
 
     private String sort_by = NetworkUtils.MOVIE_POPULAR;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,27 +56,27 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         mRecyclerView.setAdapter(movieAdapter);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
-        if(savedInstanceState == null || !savedInstanceState.containsKey("movies")) {
+        if(savedInstanceState == null || !savedInstanceState.containsKey(getString(R.string.movie_list_identifier))) {
             if (NetworkUtils.isNetworkAvailable(this)) loadData();
             else showErrorMessage();
         }
         else {
-            dataList = savedInstanceState.getParcelableArrayList("movies");
-            sort_by = savedInstanceState.getString("sort_by");
+            dataList = savedInstanceState.getParcelableArrayList(getString(R.string.movie_list_identifier));
+            sort_by = savedInstanceState.getString(getString(R.string.sort_option_identifier));
             movieAdapter.setNewData(dataList);
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
-        bundle.putString("sort_by", sort_by);
-        bundle.putParcelableArrayList("movies", (ArrayList<? extends Parcelable>) dataList);
+        bundle.putString(getString(R.string.sort_option_identifier), sort_by);
+        bundle.putParcelableArrayList(getString(R.string.movie_list_identifier), (ArrayList<? extends Parcelable>) dataList);
         super.onSaveInstanceState(bundle);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle bundle) {
-        sort_by = bundle.getString("sort_by");
+        sort_by = bundle.getString(getString(R.string.sort_option_identifier));
         super.onRestoreInstanceState(bundle);
     }
 
@@ -133,11 +137,12 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     @Override
     public void onClick(Movie movie) {
         Intent intentToStartDetailActivity = new Intent(this, DetailActivity.class);
-        intentToStartDetailActivity.putExtra("movie", movie);
+        intentToStartDetailActivity.putExtra(getString(R.string.movie_identifier), movie);
         startActivity(intentToStartDetailActivity);
     }
 
-    public class FetchMovies extends AsyncTask<String, Void, List<Movie>> {
+    @SuppressLint("StaticFieldLeak")
+    private class FetchMovies extends AsyncTask<String, Void, List<Movie>> {
 
         @Override
         protected void onPreExecute() {
@@ -157,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
             try {
                 String jsonResponse = NetworkUtils.getResponseFromHttpUrl(requestUrl);
-                return MovieDBJsonUtils.getSimpleMovieStringsFromJson(MainActivity.this, jsonResponse);
+                return MovieDBJsonUtils.getSimpleMovieStringsFromJson(jsonResponse);
 
             } catch (Exception e) {
                 e.printStackTrace();

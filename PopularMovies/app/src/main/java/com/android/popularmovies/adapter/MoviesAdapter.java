@@ -1,4 +1,4 @@
-package com.android.popularmovies;
+package com.android.popularmovies.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,13 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.android.popularmovies.R;
+import com.android.popularmovies.dataModel.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by Christos on 09/12/2017.
- */
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
@@ -35,9 +34,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         Context context = parent.getContext();
         int layoutIdForListItem = R.layout.movie_item;
         LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParentImmediately = false;
 
-        View view = inflater.inflate(layoutIdForListItem, parent, shouldAttachToParentImmediately);
+        View view = inflater.inflate(layoutIdForListItem, parent, false);
         return new MovieViewHolder(view);
     }
 
@@ -66,9 +64,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     class MovieViewHolder  extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        final ImageView movieImageView;
+        private final ImageView movieImageView;
 
-        public MovieViewHolder (View view) {
+        private MovieViewHolder(View view) {
             super(view);
             movieImageView = view.findViewById(R.id.movie_image);
             view.setOnClickListener(this);

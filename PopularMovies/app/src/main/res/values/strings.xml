@@ -9,4 +9,8 @@
     <string name="top_rated">Top Rated</string>
     <string name="movie_image_description">movie poster image</string>
     <string name="detail_activity_title">MovieDetail</string>
+    <string name="movie_identifier">movie</string>
+    <string name="movie_list_identifier">movies</string>
+    <string name="sort_option_identifier">sort_by</string>
+    <string name="top_rating">10</string>
 </resources>
