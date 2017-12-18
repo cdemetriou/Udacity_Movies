@@ -18,12 +18,14 @@ import com.android.popularmovies.utilities.NetworkUtils;
 import com.android.popularmovies.utilities.MovieDBJsonUtils;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MovieAdapterOnClickHandler {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private List<Movie> dataList;
     private RecyclerView mRecyclerView;
     private MoviesAdapter movieAdapter;
     private TextView mErrorMessageDisplay;
@@ -45,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
             gridLayoutManager.setSpanCount(2);
         else gridLayoutManager.setSpanCount(3);
 
-        movieAdapter = new MoviesAdapter(this, this);
+        dataList = new ArrayList<>();
+        movieAdapter = new MoviesAdapter(this, this, dataList);
         mRecyclerView.setAdapter(movieAdapter);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
@@ -149,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
                 return;
             }
             showDataView();
-            movieAdapter.setWeatherData(movieList);
+            movieAdapter.setNewData(movieList);
         }
     }
 

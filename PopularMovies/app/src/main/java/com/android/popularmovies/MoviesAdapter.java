@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +25,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         void onClick(Movie movie);
     }
 
-    public MoviesAdapter(Context context, MovieAdapterOnClickHandler clickHandler) {
-        movieList = new ArrayList<>();
+    public MoviesAdapter(Context context, MovieAdapterOnClickHandler clickHandler, List<Movie> dataList) {
+        movieList = dataList;
         mContext = context;
         mClickHandler = clickHandler;
     }
@@ -58,9 +57,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     }
 
 
-    public void setWeatherData(List<Movie> weatherData) {
+    public void setNewData(List<Movie> newData) {
         movieList.clear();
-        movieList.addAll(weatherData);
+        movieList.addAll(newData);
         notifyDataSetChanged();
     }
 
