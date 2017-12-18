@@ -57,8 +57,13 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
         if(savedInstanceState == null || !savedInstanceState.containsKey(getString(R.string.movie_list_identifier))) {
-            if (NetworkUtils.isNetworkAvailable(this)) loadData();
-            else showErrorMessage();
+            if (NetworkUtils.isNetworkAvailable(this)) {
+                loadData();
+            }
+            else {
+                mErrorMessageDisplay.setText(R.string.network_error_message);
+                showErrorMessage();
+            }
         }
         else {
             dataList = savedInstanceState.getParcelableArrayList(getString(R.string.movie_list_identifier));

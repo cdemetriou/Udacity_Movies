@@ -13,4 +13,5 @@
     <string name="movie_list_identifier">movies</string>
     <string name="sort_option_identifier">sort_by</string>
     <string name="top_rating">10</string>
+    <string name="network_error_message">No network connection available.</string>
 </resources>
