@@ -21,14 +21,19 @@ public class NetworkUtils {
     private static final String MOVIESDB_URL = "https://api.themoviedb.org/3/";
     public static final String MOVIE_POPULAR = "movie/popular";
     public static final String MOVIE_TOP_RATED = "movie/top_rated";
+    public static final String MOVIE_FAVORITES = "favorites";
+
+    public static final String MOVIE_VIDEOS = "movie/{id}/videos";
+    public static final String MOVIE_REVIEWS = "movie/{id}/reviews";
+
 
     private  static final String API_KEY_PARAM = "api_key";
     private  static final String API_KEY = "YOUR_API_KEY";
 
-    public static URL buildUrl(String popular_or_toprated) {
+    public static URL buildUrl(String parameter) {
         Uri builtUri = Uri
                 .parse(MOVIESDB_URL).buildUpon()
-                .appendEncodedPath(popular_or_toprated)
+                .appendEncodedPath(parameter)
                 .appendQueryParameter(API_KEY_PARAM, API_KEY)
                 .build();
 
@@ -45,13 +50,6 @@ public class NetworkUtils {
     }
 
 
-    /**
-     * This method returns the entire result from the HTTP response.
-     *
-     * @param url The URL to fetch the HTTP response from.
-     * @return The contents of the HTTP response.
-     * @throws IOException Related to network and stream reading
-     */
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {

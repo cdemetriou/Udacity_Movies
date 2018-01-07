@@ -14,4 +14,14 @@
     <string name="sort_option_identifier">sort_by</string>
     <string name="top_rating">10</string>
     <string name="network_error_message">No network connection available.</string>
+    <string name="favorite">favorite</string>
+    <string name="share">share</string>
+    <string name="favourites">Favourites</string>
+    <string name="favorite_movie_button">favorite movie button</string>
+    <string name="trailers">Trailers</string>
+    <string name="reviews">Reviews</string>
+    <string name="movie_thumbnail">movie thumbnail</string>
+    <string name="placeholder_for_the_video_thumbnail">placeholder for the video thumbnail</string>
+    <string name="play_icon_showing_the_click_functionality">play icon showing the click functionality</string>
+    <string name="share_title">Share Movie</string>
 </resources>
